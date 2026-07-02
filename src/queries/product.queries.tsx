@@ -12,3 +12,14 @@ export function useProducts(): UseQueryResult<Product[], Error> {
     staleTime: 5 * 60 * 1000,
   });
 }
+
+export function useProduct(id: string): UseQueryResult<Product, Error> {
+  return useQuery({
+    queryKey: ["products", id],
+    queryFn: async () => {
+      const response = await fakeStoreClient.get(`/products/${id}`);
+      return response.data;
+    },
+    staleTime: 5 * 60 * 1000,
+  });
+}

@@ -1,3 +1,4 @@
+import { NavLink } from "react-router";
 import type { Product } from "../schema/product.schema";
 
 type ProductCardProps = {
@@ -22,9 +23,12 @@ export default function ProductCard({ product }: ProductCardProps) {
         <p className="line-clamp-2">{product.description}</p>
       </div>
 
-      <div className="bg-amber-300 text-white w-60 flex items-center justify-center rounded-xl">
-        <button>See the product</button>
-      </div>
+      <NavLink
+        to={`/products/${product.id}`}
+        className="bg-amber-300 text-white w-60 flex items-center justify-center rounded-xl"
+      >
+        See the product
+      </NavLink>
     </div>
   );
 }
