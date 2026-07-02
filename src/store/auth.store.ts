@@ -10,7 +10,7 @@ export const logout = () => {
   localStorage.clear();
 };
 
-export const AuthStore = create<AuthLoginStore>(() => ({
+export const useAuthStore = create<AuthLoginStore>(() => ({
   username: localStorage.getItem("username") ?? "",
   token: localStorage.getItem("token") ?? "",
 }));
