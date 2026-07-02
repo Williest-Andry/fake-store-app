@@ -1,12 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
 import type { AuthLogin } from "../schema/auth.schema";
-import { useNavigate } from "react-router";
-import { fakeStoreClient } from "./client/axios-clients";
 import { saveAuthData } from "../store/auth.store";
+import { fakeStoreClient } from "./client/axios-clients";
 
 export function useLogin() {
-  const navigation = useNavigate();
-
   return useMutation({
     mutationFn: async (credentials: AuthLogin) => {
       const response = await fakeStoreClient.post("auth/login", credentials);
@@ -14,7 +11,7 @@ export function useLogin() {
     },
     onSuccess: (data, variables) => {
       saveAuthData(variables.username, data.token);
-      navigation("/");
+      window.location.href = "/";
     },
   });
 }
