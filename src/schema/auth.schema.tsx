@@ -6,3 +6,7 @@ export const AuthLoginSchema = z.object({
 });
 
 export type AuthLogin = z.infer<typeof AuthLoginSchema>;
+export type AuthLoginStore = {
+  username: string;
+  token: string;
+};
