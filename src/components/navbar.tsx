@@ -10,17 +10,24 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="flex items-center justify-center gap-10 text-xl shadow-xl w-[50%] m-auto rounded-xl">
+    <nav className="flex items-center justify-center gap-40 text-xl shadow-xl w-[50%] m-auto rounded-xl">
       <div>
         <NavLink to={"/"}>Home</NavLink>
       </div>
 
       {username ? (
-        <div className="flex gap-6 text-gray-400 font-bold">
-          <p>{username}</p>
-          <button className="bg-red-500" onClick={handleLogout}>
-            Logout
-          </button>
+        <div className="flex gap-10 text-gray-400 font-bold">
+          <div className="flex items-center justify-center">
+            <NavLink to={"/my-cart"}>
+              <button>My cart</button>
+            </NavLink>
+          </div>
+          <div className="flex gap-6">
+            <p>{username}</p>
+            <button className="bg-red-500" onClick={handleLogout}>
+              Logout
+            </button>
+          </div>
         </div>
       ) : (
         <div className="flex items-center justify-center bg-blue-600 text-white">
