@@ -1,5 +1,9 @@
 import { NavLink } from "react-router";
 import { logout, useAuthStore } from "../store/auth.store";
+import Brand from "./brand";
+import Cart from "../../public/shopping-bag-64.png";
+import User from "../../public/user.png";
+import Logout from "../../public/logout.png";
 
 export default function Navbar() {
   const { username } = useAuthStore();
@@ -10,24 +14,51 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="flex items-center justify-center gap-40 text-xl shadow-xl w-[50%] m-auto rounded-xl">
-      <div>
-        <NavLink to={"/"}>Home</NavLink>
+    <nav className="font-work flex items-center justify-between gap-40 text-xl h-15 border border-b-gray-200 px-20">
+      <div className="flex items-center gap-20">
+        <NavLink to={"/products"}>
+          <Brand />
+        </NavLink>
+        <div className="flex items-center gap-6 text-lg">
+          <NavLink to={"/products"} className="focus:text-gray-500">
+            Home
+          </NavLink>
+          <NavLink to={"/products"} className="focus:text-gray-500">
+            Products
+          </NavLink>
+        </div>
       </div>
 
       {username ? (
-        <div className="flex gap-10 text-gray-400 font-bold">
-          <div className="flex items-center justify-center">
+        <div className="flex items-center gap-8">
+          <div className="flex items-center gap-2 text-gray-500">
+            <p>{username}</p>
+            <div className="flex w-7 h-7">
+              <img
+                src={User}
+                alt="user icon"
+                className="w-full h-full object-scale-down"
+              />
+            </div>
+          </div>
+
+          <div className="flex items-center justify-center w-9 h-9">
             <NavLink to={"/my-cart"}>
-              <button>My cart</button>
+              <img
+                src={Cart}
+                alt="cart icon"
+                className="w-full h-full object-fill"
+              />
             </NavLink>
           </div>
-          <div className="flex gap-6">
-            <p>{username}</p>
-            <button className="bg-red-500" onClick={handleLogout}>
-              Logout
-            </button>
-          </div>
+
+          <button className="w-9 h-9 cursor-pointer" onClick={handleLogout}>
+            <img
+              src={Logout}
+              alt="logout icon"
+              className="w-full h-full object-fill"
+            />
+          </button>
         </div>
       ) : (
         <div className="flex items-center justify-center bg-blue-600 text-white">
