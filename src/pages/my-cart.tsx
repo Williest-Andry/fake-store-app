@@ -1,9 +1,12 @@
+import Loading from "../components/loading";
 import Navbar from "../components/navbar";
 import ProductCart from "../components/product-cart";
 import { useCartStore } from "../store/cart.store";
 
 export default function MyCart() {
   const { products } = useCartStore();
+
+  if (!products) return <Loading />;
 
   return (
     <>

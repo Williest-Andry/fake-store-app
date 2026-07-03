@@ -3,6 +3,7 @@ import { useProduct } from "../queries/product.queries";
 import Navbar from "../components/navbar";
 import { useCartStore } from "../store/cart.store";
 import Badge from "../components/badge";
+import Loading from "../components/loading";
 
 export default function ProductDetailsPage() {
   const { id } = useParams();
@@ -27,13 +28,7 @@ export default function ProductDetailsPage() {
     );
   }
 
-  if (isPending) {
-    return (
-      <div className="flex justify-center items-center mt-100">
-        <p className="text-3xl text-blue-600">Loading ...</p>
-      </div>
-    );
-  }
+  if (isPending) return <Loading />;
 
   return (
     <>

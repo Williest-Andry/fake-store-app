@@ -1,3 +1,4 @@
+import Loading from "../components/loading";
 import ProductCard from "../components/product-card";
 import { useProducts } from "../queries/product.queries";
 
@@ -12,13 +13,7 @@ export default function ProductsPage() {
     );
   }
 
-  if (isPending) {
-    return (
-      <div className="flex justify-center items-center mt-100">
-        <p className="text-3xl text-blue-600">Loading ...</p>
-      </div>
-    );
-  }
+  if (isPending) return <Loading />;
 
   return (
     <section className="font-work flex flex-col gap-10 mt-20 items-center justify-center">
