@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm, type SubmitHandler } from "react-hook-form";
-import Email from "../../public/mail.png";
-import Password from "../../public/padlock.png";
+import Email from "/mail.png";
+import Password from "/padlock.png";
 import Brand from "../components/brand";
 import { useLogin } from "../queries/auth.queries";
 import { AuthLoginSchema, type AuthLogin } from "../schema/auth.schema";

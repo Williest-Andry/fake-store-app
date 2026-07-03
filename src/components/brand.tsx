@@ -1,4 +1,4 @@
-import Logo from "../../public/ecommerce-32.png";
+import Logo from "/ecommerce-32.png";
 
 export default function Brand() {
   return (
