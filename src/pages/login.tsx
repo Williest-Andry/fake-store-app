@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm, type SubmitHandler } from "react-hook-form";
-import Email from "/mail.png";
+import User from "/user.png";
 import Password from "/padlock.png";
 import Brand from "../components/brand";
 import { useLogin } from "../queries/auth.queries";
@@ -40,9 +40,9 @@ export default function LoginPage() {
             render={({ field }) => (
               <div className="relative flex flex-col w-97">
                 <img
-                  src={Email}
+                  src={User}
                   alt="username icon"
-                  className="absolute left-2 top-2"
+                  className="absolute left-2 top-2 w-6"
                 />
                 <input
                   {...field}
