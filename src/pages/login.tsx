@@ -37,6 +37,7 @@ export default function LoginPage() {
           <Controller
             name="username"
             control={control}
+            defaultValue=""
             render={({ field }) => (
               <div className="relative flex flex-col w-97">
                 <img
@@ -61,6 +62,7 @@ export default function LoginPage() {
           <Controller
             name="password"
             control={control}
+            defaultValue=""
             render={({ field }) => (
               <div className="relative flex flex-col w-97">
                 <img
