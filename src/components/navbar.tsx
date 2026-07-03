@@ -1,9 +1,9 @@
 import { NavLink } from "react-router";
 import { logout, useAuthStore } from "../store/auth.store";
 import Brand from "./brand";
-import Cart from "../../public/shopping-bag-64.png";
-import User from "../../public/user.png";
-import Logout from "../../public/logout.png";
+import Cart from "/shopping-bag-64.png";
+import User from "/user.png";
+import Logout from "/logout.png";
 
 export default function Navbar() {
   const { username } = useAuthStore();
