@@ -13,7 +13,7 @@ export default function MyCart() {
         <section className="mt-20 flex flex-col gap-10 items-center justify-center">
           <p className="text-2xl font-bold">All my items</p>
 
-          <div className="grid grid-cols-3 gap-10">
+          <div className="flex flex-col gap-10">
             {products.map((product) => (
               <ProductCart key={product.id} product={product} />
             ))}
