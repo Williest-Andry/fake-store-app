@@ -4,6 +4,7 @@ import Navbar from "../components/navbar";
 import { useCartStore } from "../store/cart.store";
 import Badge from "../components/badge";
 import Loading from "../components/loading";
+import ErrorSection from "../components/error-section";
 
 export default function ProductDetailsPage() {
   const { id } = useParams();
@@ -20,13 +21,7 @@ export default function ProductDetailsPage() {
     if (product && !isAlreadyInCart()) addProduct(product);
   };
 
-  if (error) {
-    return (
-      <div className="flex justify-center items-center mt-100">
-        <p className="text-3xl text-red-600">{error.message}</p>
-      </div>
-    );
-  }
+  if (error) return <ErrorSection />;
 
   if (isPending) return <Loading />;
 

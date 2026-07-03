@@ -1,3 +1,4 @@
+import ErrorSection from "../components/error-section";
 import Loading from "../components/loading";
 import ProductCard from "../components/product-card";
 import { useProducts } from "../queries/product.queries";
@@ -5,13 +6,7 @@ import { useProducts } from "../queries/product.queries";
 export default function ProductsPage() {
   const { data, error, isPending } = useProducts();
 
-  if (error) {
-    return (
-      <div className="flex justify-center items-center mt-100">
-        <p className="text-3xl text-red-600">{error.message}</p>
-      </div>
-    );
-  }
+  if (error) return <ErrorSection />;
 
   if (isPending) return <Loading />;
 
