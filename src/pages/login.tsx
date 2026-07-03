@@ -1,32 +1,19 @@
-import { useState } from "react";
-import { AuthLoginSchema, type AuthLogin } from "../schema/auth.schema";
-import { useLogin } from "../queries/auth.queries";
-import { Controller, useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Brand from "../components/brand";
+import { Controller, useForm, type SubmitHandler } from "react-hook-form";
 import Email from "../../public/mail.png";
 import Password from "../../public/padlock.png";
+import Brand from "../components/brand";
+import { useLogin } from "../queries/auth.queries";
+import { AuthLoginSchema, type AuthLogin } from "../schema/auth.schema";
 
 export default function LoginPage() {
-  const [credentials, setCredentials] = useState<AuthLogin>({
-    username: "",
-    password: "",
-  });
-
   const {
-    register,
     formState: { errors },
     handleSubmit,
     control,
   } = useForm({ resolver: zodResolver(AuthLoginSchema) });
 
   const { mutate: login, error, isPending } = useLogin();
-
-  const handleChange = (label: "username" | "password", value: string) => {
-    let changedCredentials = JSON.parse(JSON.stringify(credentials));
-    changedCredentials[label] = value;
-    setCredentials(changedCredentials);
-  };
 
   const submitForm: SubmitHandler<AuthLogin> = (
     data: AuthLogin,
@@ -50,7 +37,6 @@ export default function LoginPage() {
           <Controller
             name="username"
             control={control}
-            rules={{ value: credentials.username }}
             render={({ field }) => (
               <div className="relative flex flex-col w-97">
                 <img
@@ -75,7 +61,6 @@ export default function LoginPage() {
           <Controller
             name="password"
             control={control}
-            rules={{ value: credentials.password }}
             render={({ field }) => (
               <div className="relative flex flex-col w-97">
                 <img
