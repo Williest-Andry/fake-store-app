@@ -2,6 +2,7 @@ import { useParams } from "react-router";
 import { useProduct } from "../queries/product.queries";
 import Navbar from "../components/navbar";
 import { useCartStore } from "../store/cart.store";
+import Badge from "../components/badge";
 
 export default function ProductDetailsPage() {
   const { id } = useParams();
@@ -38,37 +39,36 @@ export default function ProductDetailsPage() {
     <>
       <Navbar />
 
-      <section className="flex flex-col gap-50 mt-30 justify-between items-center">
-        <div className="flex justify-between">
-          <div>
-            <img src={product.image} alt={`${product.title} image`} />
+      <section className="font-work flex flex-col gap-50 mt-20  h-180 justify-between items-center">
+        <div className="flex justify-start gap-20  w-full h-full">
+          <div className="bg-gray-100 w-[50%] flex items-center justify-center ">
+            <img
+              src={product.image}
+              alt={`${product.title} image`}
+              className="w-100"
+            />
           </div>
 
-          <div className="flex flex-col gap-20">
-            <div>
-              <p>{product.title}</p>
-              <p>{product.price}</p>
-              <p>{product.category}</p>
-              <p>{product.description}</p>
+          <div className="flex flex-col gap-10">
+            <div className="flex flex-col gap-4 w-180 mt-20">
+              <p className="font-bold text-3xl">{product.title}</p>
+              <Badge value={product.category} w="50" />
+              <p className="font-bold">{product.price}</p>
+              <p className="text-xl">{product.description}</p>
             </div>
 
-            <div className="flex flex-col gap-4 items-center justify-center">
+            <div className="flex flex-col gap-4 w-80">
               <button
                 className={
-                  products.indexOf(product) === -1
-                    ? "bg-blue-500 text-white w-50 h-20 rounded-xl text-xl"
-                    : "bg-blue-500 text-white w-50 h-20 rounded-xl text-xl opacity-50"
+                  isAlreadyInCart()
+                    ? "bg-black text-white w-full h-15 rounded-xl text-xl opacity-50 cursor-not-allowed "
+                    : "bg-black text-white w-full h-15 rounded-xl text-xl cursor-pointer"
                 }
                 onClick={handleAddToCart}
                 disabled={isAlreadyInCart()}
               >
-                Add to cart
+                {isAlreadyInCart() ? "Already in your cart" : "Add to cart"}
               </button>
-              {isAlreadyInCart() && (
-                <p className="text-sm text-red-600">
-                  Already exists in your cart
-                </p>
-              )}
             </div>
           </div>
         </div>
