@@ -14,12 +14,12 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="font-work flex items-center justify-between gap-40 text-xl h-15 border border-b-gray-200 px-20">
-      <div className="flex items-center gap-20">
+    <nav className="font-work flex items-center justify-between min-[855px]:gap-40 text-xl h-15 border border-b-gray-200 min-[855px]:px-20">
+      <div className="flex items-center gap-4 min-[855px]:gap-20">
         <NavLink to={"/products"}>
           <Brand />
         </NavLink>
-        <div className="flex items-center gap-6 text-lg">
+        <div className="flex items-center gap-2 min-[855px]:gap-6 text-sm min-[855px]:text-lg">
           <NavLink to={"/products"} className="focus:text-gray-500">
             Home
           </NavLink>
@@ -30,9 +30,9 @@ export default function Navbar() {
       </div>
 
       {username ? (
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-2 min-[855px]:gap-8">
           <div className="flex items-center gap-2 text-gray-500">
-            <p>{username}</p>
+            <p className="text-sm min-[855px]:text-xl">{username}</p>
             <div className="flex w-7 h-7">
               <img
                 src={User}
