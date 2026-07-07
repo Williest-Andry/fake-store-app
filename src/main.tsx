@@ -9,6 +9,7 @@ import ProductDetailsPage from "./pages/product-details";
 import MyCart from "./pages/my-cart";
 import PrivateRoute from "./routes/private-routes";
 import GuestRoute from "./routes/guest-routes";
+import CreateProductPage from "./pages/create-product";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +27,7 @@ createRoot(document.getElementById("root")!).render(
             <Route path="/products" element={<App />} />
             <Route path="/products/:id" element={<ProductDetailsPage />} />
             <Route path="/my-cart" element={<MyCart />} />
+            <Route path="/create-product" element={<CreateProductPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -19,12 +19,15 @@ export default function Navbar() {
         <NavLink to={"/products"}>
           <Brand />
         </NavLink>
-        <div className="flex items-center gap-2 min-[855px]:gap-6 text-sm min-[855px]:text-lg">
+        <div className="flex items-center gap-2 min-[855px]:gap-8 text-sm min-[855px]:text-lg">
           <NavLink to={"/products"} className="focus:text-gray-500">
             Home
           </NavLink>
           <NavLink to={"/products"} className="focus:text-gray-500">
             Products
+          </NavLink>
+          <NavLink to={"/create-product"} className="focus:text-gray-500">
+            Create product
           </NavLink>
         </div>
       </div>
