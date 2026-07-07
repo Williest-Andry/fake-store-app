@@ -1,6 +1,10 @@
-import { useQuery, type UseQueryResult } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQuery,
+  type UseQueryResult,
+} from "@tanstack/react-query";
 import { fakeStoreClient } from "./client/axios-clients";
-import type { Product } from "../schema/product.schema";
+import type { CreateProduct, Product } from "../schema/product.schema";
 
 export function useProducts(): UseQueryResult<Product[], Error> {
   return useQuery({
@@ -21,5 +25,17 @@ export function useProduct(id: string): UseQueryResult<Product, Error> {
       return response.data;
     },
     staleTime: 5 * 60 * 1000,
+  });
+}
+
+export function useCreateProduct() {
+  return useMutation({
+    mutationFn: async (data: CreateProduct) => {
+      const response = await fakeStoreClient.post("/products", data);
+      return response.data;
+    },
+    onSuccess: (data) => {
+      console.log("response : ", data);
+    },
   });
 }
