@@ -5,6 +5,8 @@ import {
 } from "@tanstack/react-query";
 import { fakeStoreClient } from "./client/axios-clients";
 import type { CreateProduct, Product } from "../schema/product.schema";
+import { useProductStore } from "../store/product.store";
+import { v4 as uuidv4 } from "uuid";
 
 export function useProducts(): UseQueryResult<Product[], Error> {
   return useQuery({
@@ -29,13 +31,21 @@ export function useProduct(id: string): UseQueryResult<Product, Error> {
 }
 
 export function useCreateProduct() {
+  const { products, addProducts } = useProductStore();
+
   return useMutation({
     mutationFn: async (data: CreateProduct) => {
       const response = await fakeStoreClient.post("/products", data);
       return response.data;
     },
     onSuccess: (data) => {
-      console.log("response : ", data);
+      if (
+        products.find(
+          (product) => JSON.stringify(product) == JSON.stringify(data),
+        )
+      )
+        return;
+      else addProducts([{ ...data, id: uuidv4() }]);
     },
   });
 }

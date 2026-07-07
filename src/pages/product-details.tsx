@@ -8,11 +8,16 @@ import { useUpdateCart } from "../queries/cart.queries";
 import type { Cart } from "../schema/cart.schema";
 import { useCartStore } from "../store/cart.store";
 import { useEffect, useState } from "react";
+import { useProductStore } from "../store/product.store";
 
 export default function ProductDetailsPage() {
   const { id } = useParams();
 
-  const { data: product, error, isPending } = useProduct(id ?? "");
+  const { error, isPending } = useProduct(id ?? "");
+
+  const { products: existingProducts } = useProductStore();
+
+  const existingProduct = existingProducts.find((p) => p.id == id);
 
   const {
     mutate: updateCart,
@@ -31,7 +36,7 @@ export default function ProductDetailsPage() {
       products: [],
     };
 
-    userCart.products.push(product!);
+    userCart.products.push(existingProduct!);
     updateCart(userCart);
 
     setTimeout(() => {
@@ -46,10 +51,14 @@ export default function ProductDetailsPage() {
   }, [isPending]);
 
   const isAlreadyInCart = () => {
-    return product && products.find((p) => p.id === product.id) ? true : false;
+    return products.find(
+      (p) => JSON.stringify(p) === JSON.stringify(existingProduct),
+    )
+      ? true
+      : false;
   };
 
-  if (error) return <ErrorSection />;
+  if (error || !existingProduct) return <ErrorSection />;
 
   if (isPending) return <Loading />;
 
@@ -61,18 +70,18 @@ export default function ProductDetailsPage() {
         <div className="flex justify-start gap-20  w-full h-full">
           <div className="bg-gray-100 w-[50%] flex items-center justify-center ">
             <img
-              src={product.image}
-              alt={`${product.title} image`}
+              src={existingProduct.image}
+              alt={`${existingProduct.title} image`}
               className="w-100"
             />
           </div>
 
           <div className="flex flex-col gap-10">
             <div className="flex flex-col gap-4 w-180 mt-20">
-              <p className="font-bold text-3xl">{product.title}</p>
-              <Badge value={product.category} w="50" />
-              <p className="font-bold">{product.price}</p>
-              <p className="text-xl">{product.description}</p>
+              <p className="font-bold text-3xl">{existingProduct.title}</p>
+              <Badge value={existingProduct.category} w="50" />
+              <p className="font-bold">{existingProduct.price}</p>
+              <p className="text-xl">{existingProduct.description}</p>
             </div>
 
             <div className="flex flex-col items-center gap-4 w-80">
