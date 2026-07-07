@@ -24,7 +24,7 @@ export default function MyCart() {
         </section>
       ) : (
         <div className="flex justify-center items-center mt-100">
-          <p className="text-3xl text-blue-600">No items in your cart</p>
+          <p className="text-3xl text-black">No items in your cart</p>
         </div>
       )}
     </>
