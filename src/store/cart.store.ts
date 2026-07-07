@@ -4,6 +4,7 @@ import type { Product } from "../schema/product.schema";
 
 type CartStore = {
   addProduct: (product: Product) => void;
+  setProducts: (products: Product[]) => void;
 } & Cart;
 
 export const useCartStore = create<CartStore>((set) => ({
@@ -13,4 +14,5 @@ export const useCartStore = create<CartStore>((set) => ({
 
   addProduct: (product) =>
     set((state) => ({ products: [...state.products, product] })),
+  setProducts: (products) => set({ products: products }),
 }));
