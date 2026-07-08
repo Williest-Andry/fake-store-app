@@ -67,7 +67,8 @@ export default function ProductDetailsPage() {
     deleteProduct(existingProduct?.id ?? "");
   };
 
-  if (error || !existingProduct) return <ErrorSection />;
+  if (error || !existingProduct)
+    return <ErrorSection showReloadButton={false} />;
 
   if (isPending) return <Loading />;
 
