@@ -61,7 +61,7 @@ export function useDeleteProduct() {
       return response.data;
     },
     // eslint-disable-next-line no-unused-vars
-    onSettled: (data, error, productId) => {
+    onSettled: (_data, _error, productId) => {
       removeProduct(productId);
       navigate("/");
     },
@@ -80,7 +80,7 @@ export function useUpdateProduct(productId: string) {
       return response.data;
     },
     // eslint-disable-next-line no-unused-vars
-    onSettled: (data, error, product) => {
+    onSettled: (_data, _error, product) => {
       const updatedProduct: Product = { ...product, id: productId };
       updateProduct(updatedProduct);
     },
