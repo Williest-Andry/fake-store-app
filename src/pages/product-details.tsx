@@ -29,6 +29,8 @@ export default function ProductDetailsPage() {
 
   const [isSuccessMessage, setIsSuccessMessage] = useState(false);
 
+  const [isDeletable, setIsDeletable] = useState(true);
+
   const handleAddToCart = () => {
     let userCart: Cart = {
       id: "0", // mock
@@ -62,6 +64,10 @@ export default function ProductDetailsPage() {
     useDeleteProduct();
 
   const handleDelete = () => {
+    if (isAlreadyInCart()) {
+      setIsDeletable(false);
+      return;
+    }
     deleteProduct(existingProduct?.id ?? "");
   };
 
@@ -128,6 +134,11 @@ export default function ProductDetailsPage() {
             {deletePending ? "..." : "Delete"}
           </button>
         </div>
+        {!isDeletable && (
+          <p className="text-xl text-red-700">
+            This product is still in the shopping cart
+          </p>
+        )}
       </section>
     </>
   );
