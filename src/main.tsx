@@ -10,6 +10,7 @@ import MyCart from "./pages/my-cart";
 import PrivateRoute from "./routes/private-routes";
 import GuestRoute from "./routes/guest-routes";
 import CreateProductPage from "./pages/create-product";
+import ModifyProductPage from "./pages/modify-product";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +29,7 @@ createRoot(document.getElementById("root")!).render(
             <Route path="/products/:id" element={<ProductDetailsPage />} />
             <Route path="/my-cart" element={<MyCart />} />
             <Route path="/create-product" element={<CreateProductPage />} />
+            <Route path="/modify-product/:id" element={<ModifyProductPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

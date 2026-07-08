@@ -8,13 +8,15 @@ import { useProductStore } from "../store/product.store";
 export default function ProductsPage() {
   const { data, error, isPending } = useProducts();
 
-  const { products, addProducts, deletedProducts } = useProductStore();
+  const { products, addProducts, deletedProducts, updatedProducts } =
+    useProductStore();
 
   useEffect(() => {
     if (data) {
       data.map((p) => {
         if (products.find((product) => product.id == p.id)) return;
         if (deletedProducts.find((product) => product.id == p.id)) return;
+        if (updatedProducts.find((product) => product.id == p.id)) return;
 
         addProducts([p]);
       });

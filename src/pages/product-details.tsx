@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+import { NavLink, useParams } from "react-router";
 import { useDeleteProduct, useProduct } from "../queries/product.queries";
 import Navbar from "../components/navbar";
 import Badge from "../components/badge";
@@ -114,9 +114,13 @@ export default function ProductDetailsPage() {
           </div>
         </div>
         <div className="flex gap-6">
-          <button className="bg-gray-500 text-white w-75 h-15 rounded-xl text-xl cursor-pointer">
+          <NavLink
+            to={`/modify-product/${existingProduct.id}`}
+            className="bg-gray-500 text-white w-75 h-15 rounded-xl text-xl cursor-pointer flex items-center justify-center"
+          >
             Modify
-          </button>
+          </NavLink>
+
           <button
             className="bg-red-500 text-white w-75 h-15 rounded-xl text-xl cursor-pointer"
             onClick={handleDelete}

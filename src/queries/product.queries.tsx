@@ -60,9 +60,27 @@ export function useDeleteProduct() {
       const response = await fakeStoreClient.delete(`products/${productId}`);
       return response.data;
     },
-    onSettled(data, error, productId) {
+    onSettled: (data, error, productId) => {
       removeProduct(productId);
       navigate("/");
+    },
+  });
+}
+
+export function useUpdateProduct(productId: string) {
+  const { updateProduct } = useProductStore();
+
+  return useMutation({
+    mutationFn: async (product: CreateProduct) => {
+      const response = await fakeStoreClient.put(
+        `products/${productId}`,
+        product,
+      );
+      return response.data;
+    },
+    onSettled: (data, error, product) => {
+      const updatedProduct: Product = { ...product, id: productId };
+      updateProduct(updatedProduct);
     },
   });
 }
