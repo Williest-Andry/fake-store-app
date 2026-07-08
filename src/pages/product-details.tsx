@@ -29,6 +29,8 @@ export default function ProductDetailsPage() {
 
   const [isSuccessMessage, setIsSuccessMessage] = useState(false);
 
+  const [isDeletable, setIsDeletable] = useState(true);
+
   const handleAddToCart = () => {
     let userCart: Cart = {
       id: "0", // mock
@@ -51,21 +53,22 @@ export default function ProductDetailsPage() {
   }, [isPending]);
 
   const isAlreadyInCart = () => {
-    return products.find(
-      (p) => JSON.stringify(p) === JSON.stringify(existingProduct),
-    )
-      ? true
-      : false;
+    return products.find((p) => p.id === existingProduct?.id) ? true : false;
   };
 
   const { mutate: deleteProduct, isPending: deletePending } =
     useDeleteProduct();
 
   const handleDelete = () => {
+    if (isAlreadyInCart()) {
+      setIsDeletable(false);
+      return;
+    }
     deleteProduct(existingProduct?.id ?? "");
   };
 
-  if (error || !existingProduct) return <ErrorSection />;
+  if (error || !existingProduct)
+    return <ErrorSection showReloadButton={false} />;
 
   if (isPending) return <Loading />;
 
@@ -128,6 +131,11 @@ export default function ProductDetailsPage() {
             {deletePending ? "..." : "Delete"}
           </button>
         </div>
+        {!isDeletable && (
+          <p className="text-xl text-red-700">
+            This product is still in the shopping cart
+          </p>
+        )}
       </section>
     </>
   );

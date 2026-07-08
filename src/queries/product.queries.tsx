@@ -81,7 +81,7 @@ export function useUpdateProduct(productId: string) {
     },
     // eslint-disable-next-line no-unused-vars
     onSettled: (_data, _error, product) => {
-      const updatedProduct: Product = { ...product, id: productId };
+      const updatedProduct: Product = { id: productId, ...product };
       updateProduct(updatedProduct);
     },
   });
