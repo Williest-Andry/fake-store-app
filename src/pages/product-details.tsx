@@ -53,11 +53,7 @@ export default function ProductDetailsPage() {
   }, [isPending]);
 
   const isAlreadyInCart = () => {
-    return products.find(
-      (p) => JSON.stringify(p) === JSON.stringify(existingProduct),
-    )
-      ? true
-      : false;
+    return products.find((p) => p.id === existingProduct?.id) ? true : false;
   };
 
   const { mutate: deleteProduct, isPending: deletePending } =

@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import ErrorSection from "../components/error-section";
 import Loading from "../components/loading";
+import { useProductStore } from "../store/product.store";
 
 export default function ModifyProductPage() {
   const { id } = useParams();
@@ -21,13 +22,15 @@ export default function ModifyProductPage() {
     register,
   } = useForm({ resolver: zodResolver(CreateProductSchema) });
 
-  const {
-    mutate: updateProduct,
-    error: updateError,
-    isPending: updatePending,
-  } = useUpdateProduct(id ?? "");
+  const { mutate: updateProduct, isPending: updatePending } = useUpdateProduct(
+    id ?? "",
+  );
 
-  const { data: product, isPending, error } = useProduct(id ?? "");
+  const { products } = useProductStore();
+
+  const product = products.find((p) => p.id == id);
+
+  const { isPending, error } = useProduct(id ?? "");
 
   const [isSuccessMessage, setIsSuccessMessage] = useState(false);
 
@@ -155,9 +158,6 @@ export default function ModifyProductPage() {
               className="bg-black text-white rounded-xl text-xl h-10 w-50 mt-10"
             />
 
-            {updateError && (
-              <p className="italic text-red-500">{updateError.message}</p>
-            )}
             {isSuccessMessage && (
               <p className="text-green-700 text-xl">Modified successfully !</p>
             )}
