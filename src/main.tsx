@@ -11,6 +11,7 @@ import PrivateRoute from "./routes/private-routes";
 import GuestRoute from "./routes/guest-routes";
 import CreateProductPage from "./pages/create-product";
 import ModifyProductPage from "./pages/modify-product";
+import NotFoundPage from "./pages/not-found";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +32,8 @@ createRoot(document.getElementById("root")!).render(
             <Route path="/create-product" element={<CreateProductPage />} />
             <Route path="/modify-product/:id" element={<ModifyProductPage />} />
           </Route>
+
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>
