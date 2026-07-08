@@ -1,4 +1,4 @@
-import { NavLink } from "react-router";
+import { NavLink, type NavLinkRenderProps } from "react-router";
 import { logout, useAuthStore } from "../store/auth.store";
 import Brand from "./brand";
 import Cart from "/shopping-bag-64.png";
@@ -7,6 +7,10 @@ import Logout from "/logout.png";
 
 export default function Navbar() {
   const { username } = useAuthStore();
+
+  const isActiveLink = ({ isActive }: NavLinkRenderProps) => {
+    return isActive ? "text-gray-400" : "";
+  };
 
   const handleLogout = () => {
     logout();
@@ -20,13 +24,10 @@ export default function Navbar() {
           <Brand />
         </NavLink>
         <div className="flex items-center gap-2 min-[855px]:gap-8 text-sm min-[855px]:text-lg">
-          <NavLink to={"/products"} className="focus:text-gray-500">
+          <NavLink to={"/products"} className={isActiveLink}>
             Home
           </NavLink>
-          <NavLink to={"/products"} className="focus:text-gray-500">
-            Products
-          </NavLink>
-          <NavLink to={"/create-product"} className="focus:text-gray-500">
+          <NavLink to={"/create-product"} className={isActiveLink}>
             Create product
           </NavLink>
         </div>
