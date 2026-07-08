@@ -60,6 +60,7 @@ export function useDeleteProduct() {
       const response = await fakeStoreClient.delete(`products/${productId}`);
       return response.data;
     },
+    // eslint-disable-next-line no-unused-vars
     onSettled: (data, error, productId) => {
       removeProduct(productId);
       navigate("/");
@@ -78,6 +79,7 @@ export function useUpdateProduct(productId: string) {
       );
       return response.data;
     },
+    // eslint-disable-next-line no-unused-vars
     onSettled: (data, error, product) => {
       const updatedProduct: Product = { ...product, id: productId };
       updateProduct(updatedProduct);
