@@ -1,5 +1,5 @@
-import { useParams } from "react-router";
-import { useProduct } from "../queries/product.queries";
+import { NavLink, useParams } from "react-router";
+import { useDeleteProduct, useProduct } from "../queries/product.queries";
 import Navbar from "../components/navbar";
 import Badge from "../components/badge";
 import Loading from "../components/loading";
@@ -58,6 +58,13 @@ export default function ProductDetailsPage() {
       : false;
   };
 
+  const { mutate: deleteProduct, isPending: deletePending } =
+    useDeleteProduct();
+
+  const handleDelete = () => {
+    deleteProduct(existingProduct?.id ?? "");
+  };
+
   if (error || !existingProduct) return <ErrorSection />;
 
   if (isPending) return <Loading />;
@@ -66,7 +73,7 @@ export default function ProductDetailsPage() {
     <>
       <Navbar />
 
-      <section className="font-work flex flex-col gap-50 mt-20  h-180 justify-between items-center">
+      <section className="font-work flex flex-col gap-10 mt-20  h-180 justify-between items-center">
         <div className="flex justify-start gap-20  w-full h-full">
           <div className="bg-gray-100 w-[50%] flex items-center justify-center ">
             <img
@@ -105,6 +112,21 @@ export default function ProductDetailsPage() {
               )}
             </div>
           </div>
+        </div>
+        <div className="flex gap-6">
+          <NavLink
+            to={`/modify-product/${existingProduct.id}`}
+            className="bg-gray-500 text-white w-75 h-15 rounded-xl text-xl cursor-pointer flex items-center justify-center"
+          >
+            Modify
+          </NavLink>
+
+          <button
+            className="bg-red-500 text-white w-75 h-15 rounded-xl text-xl cursor-pointer"
+            onClick={handleDelete}
+          >
+            {deletePending ? "..." : "Delete"}
+          </button>
         </div>
       </section>
     </>

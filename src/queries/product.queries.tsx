@@ -7,6 +7,7 @@ import { fakeStoreClient } from "./client/axios-clients";
 import type { CreateProduct, Product } from "../schema/product.schema";
 import { useProductStore } from "../store/product.store";
 import { v4 as uuidv4 } from "uuid";
+import { useNavigate } from "react-router";
 
 export function useProducts(): UseQueryResult<Product[], Error> {
   return useQuery({
@@ -46,6 +47,42 @@ export function useCreateProduct() {
       )
         return;
       else addProducts([{ ...data, id: uuidv4() }]);
+    },
+  });
+}
+
+export function useDeleteProduct() {
+  const { removeProduct } = useProductStore();
+  const navigate = useNavigate();
+
+  return useMutation({
+    mutationFn: async (productId: string) => {
+      const response = await fakeStoreClient.delete(`products/${productId}`);
+      return response.data;
+    },
+    // eslint-disable-next-line no-unused-vars
+    onSettled: (_data, _error, productId) => {
+      removeProduct(productId);
+      navigate("/");
+    },
+  });
+}
+
+export function useUpdateProduct(productId: string) {
+  const { updateProduct } = useProductStore();
+
+  return useMutation({
+    mutationFn: async (product: CreateProduct) => {
+      const response = await fakeStoreClient.put(
+        `products/${productId}`,
+        product,
+      );
+      return response.data;
+    },
+    // eslint-disable-next-line no-unused-vars
+    onSettled: (_data, _error, product) => {
+      const updatedProduct: Product = { ...product, id: productId };
+      updateProduct(updatedProduct);
     },
   });
 }

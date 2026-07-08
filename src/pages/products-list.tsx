@@ -8,14 +8,19 @@ import { useProductStore } from "../store/product.store";
 export default function ProductsPage() {
   const { data, error, isPending } = useProducts();
 
-  const { products, addProducts } = useProductStore();
+  const { products, addProducts, deletedProducts, updatedProducts } =
+    useProductStore();
 
   useEffect(() => {
-    if (data)
+    if (data) {
       data.map((p) => {
         if (products.find((product) => product.id == p.id)) return;
-        else addProducts([p]);
+        if (deletedProducts.find((product) => product.id == p.id)) return;
+        if (updatedProducts.find((product) => product.id == p.id)) return;
+
+        addProducts([p]);
       });
+    }
   }, [data]);
 
   if (error) return <ErrorSection />;
@@ -25,6 +30,12 @@ export default function ProductsPage() {
   return (
     <section className="font-work flex flex-col gap-10 mt-20 items-center justify-center">
       <h1 className="text-3xl font-bold">All products</h1>
+
+      {(data.length == 0 || products.length == 0) && (
+        <div className="flex justify-center items-center mt-50">
+          <p className="text-3xl text-black">No items found</p>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 lg:min-[1555px]:grid-cols-3 gap-10">
         {products &&

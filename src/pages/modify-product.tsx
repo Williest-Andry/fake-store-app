@@ -1,14 +1,19 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler, Controller } from "react-hook-form";
 import Navbar from "../components/navbar";
-import { useCreateProduct } from "../queries/product.queries";
+import { useProduct, useUpdateProduct } from "../queries/product.queries";
 import {
   CreateProductSchema,
   type CreateProduct,
 } from "../schema/product.schema";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router";
+import ErrorSection from "../components/error-section";
+import Loading from "../components/loading";
 
-export default function CreateProductPage() {
+export default function ModifyProductPage() {
+  const { id } = useParams();
+
   const {
     formState: { errors },
     handleSubmit,
@@ -16,7 +21,13 @@ export default function CreateProductPage() {
     register,
   } = useForm({ resolver: zodResolver(CreateProductSchema) });
 
-  const { mutate: createProduct, error, isPending } = useCreateProduct();
+  const {
+    mutate: updateProduct,
+    error: updateError,
+    isPending: updatePending,
+  } = useUpdateProduct(id ?? "");
+
+  const { data: product, isPending, error } = useProduct(id ?? "");
 
   const [isSuccessMessage, setIsSuccessMessage] = useState(false);
 
@@ -24,27 +35,31 @@ export default function CreateProductPage() {
     setTimeout(() => {
       setIsSuccessMessage(false);
     }, 2000);
-  }, [isPending]);
+  }, [updatePending]);
 
   const submitForm: SubmitHandler<CreateProduct> = (
     data: CreateProduct,
     event?: React.BaseSyntheticEvent,
   ) => {
     if (event) event.preventDefault();
-    createProduct(data);
+    updateProduct(data);
 
     setTimeout(() => {
       setIsSuccessMessage(true);
     }, 500);
   };
 
+  if (error) return <ErrorSection />;
+
+  if (isPending) return <Loading />;
+
   return (
     <>
       <Navbar />
 
       <section className="flex flex-col gap-30 items-center justify-center mt-10">
-        <div className="flex flex-col items-center justify-center gap-20 shadow-xl rounded-xl w-120 h-200 px-6 py-5">
-          <p className="font-bold text-2xl">Create your own product</p>
+        <div className="flex flex-col items-center justify-center gap-20 shadow-xl rounded-xl w-220 h-200 px-6 py-5">
+          <p className="font-bold text-2xl">Modify the product</p>
 
           <form
             className="flex flex-col items-center gap-6 w-[90%]"
@@ -53,9 +68,9 @@ export default function CreateProductPage() {
             <Controller
               name="title"
               control={control}
-              defaultValue=""
+              defaultValue={product?.title}
               render={({ field }) => (
-                <div className="relative flex flex-col w-97">
+                <div className="relative flex flex-col w-197">
                   <label className="text-lg font-semibold">Title</label>
                   <input
                     {...field}
@@ -71,10 +86,11 @@ export default function CreateProductPage() {
               )}
             />
 
-            <div className="relative flex flex-col w-97">
+            <div className="relative flex flex-col w-197">
               <label className="text-lg font-semibold">Price</label>
               <input
                 {...register("price")}
+                defaultValue={product?.price}
                 min={0}
                 placeholder="price"
                 className="border border-gray-700 h-10 rounded-xl pl-2 w-full"
@@ -86,10 +102,11 @@ export default function CreateProductPage() {
               )}
             </div>
 
-            <div className="relative flex flex-col w-97">
+            <div className="relative flex flex-col w-197">
               <label className="text-lg font-semibold">Description</label>
               <textarea
                 {...register("description")}
+                defaultValue={product?.description}
                 placeholder="description"
                 className="border border-gray-700 h-30 rounded-xl pl-2 w-full"
               ></textarea>
@@ -100,10 +117,11 @@ export default function CreateProductPage() {
               )}
             </div>
 
-            <div className="relative flex flex-col w-97">
+            <div className="relative flex flex-col w-197">
               <label className="text-lg font-semibold">Category</label>
               <input
                 {...register("category")}
+                defaultValue={product?.category}
                 placeholder="category"
                 className="border border-gray-700 h-10 rounded-xl pl-2 w-full"
               ></input>
@@ -114,12 +132,13 @@ export default function CreateProductPage() {
               )}
             </div>
 
-            <div className="relative flex flex-col w-97">
+            <div className="relative flex flex-col w-197">
               <label className="text-lg font-semibold">
                 {"Image (URL format)"}
               </label>
               <input
                 {...register("image")}
+                defaultValue={product?.image}
                 placeholder="image"
                 className="border border-gray-700 h-10 rounded-xl pl-2 w-full"
                 type="url"
@@ -131,14 +150,16 @@ export default function CreateProductPage() {
 
             <input
               type="submit"
-              value={isPending ? "..." : "Create"}
-              disabled={isPending}
+              value={updatePending ? "..." : "Modify"}
+              disabled={updatePending}
               className="bg-black text-white rounded-xl text-xl h-10 w-50 mt-10"
             />
 
-            {error && <p className="italic text-red-500">{error.message}</p>}
+            {updateError && (
+              <p className="italic text-red-500">{updateError.message}</p>
+            )}
             {isSuccessMessage && (
-              <p className="text-green-700 text-xl">Created successfully !</p>
+              <p className="text-green-700 text-xl">Modified successfully !</p>
             )}
           </form>
         </div>
