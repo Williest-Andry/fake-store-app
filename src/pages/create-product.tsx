@@ -7,6 +7,7 @@ import {
   type CreateProduct,
 } from "../schema/product.schema";
 import { useEffect, useState } from "react";
+import { useProductStore } from "../store/product.store";
 
 export default function CreateProductPage() {
   const {
@@ -19,6 +20,9 @@ export default function CreateProductPage() {
   const { mutate: createProduct, error, isPending } = useCreateProduct();
 
   const [isSuccessMessage, setIsSuccessMessage] = useState(false);
+  const [isExists, setIsExists] = useState(false);
+
+  const { products } = useProductStore();
 
   useEffect(() => {
     setTimeout(() => {
@@ -31,8 +35,24 @@ export default function CreateProductPage() {
     event?: React.BaseSyntheticEvent,
   ) => {
     if (event) event.preventDefault();
-    createProduct(data);
 
+    if (
+      products.find((p) => {
+        return (
+          p.title == data.title &&
+          p.price == data.price &&
+          p.description == data.description &&
+          p.category == data.category &&
+          p.image == data.image
+        );
+      })
+    ) {
+      setIsExists(true);
+      return;
+    }
+
+    setIsExists(false);
+    createProduct(data);
     setTimeout(() => {
       setIsSuccessMessage(true);
     }, 500);
@@ -137,6 +157,11 @@ export default function CreateProductPage() {
             />
 
             {error && <p className="italic text-red-500">{error.message}</p>}
+            {isExists && (
+              <p className="italic text-red-500">
+                This product already exists !
+              </p>
+            )}
             {isSuccessMessage && (
               <p className="text-green-700 text-xl">Created successfully !</p>
             )}

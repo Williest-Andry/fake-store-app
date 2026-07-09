@@ -41,9 +41,15 @@ export function useCreateProduct() {
     },
     onSuccess: (data) => {
       if (
-        products.find(
-          (product) => JSON.stringify(product) == JSON.stringify(data),
-        )
+        products.find((p) => {
+          return (
+            p.title == data.title &&
+            p.price == data.price &&
+            p.description == data.description &&
+            p.category == data.category &&
+            p.image == data.image
+          );
+        })
       )
         return;
       else addProducts([{ ...data, id: uuidv4() }]);
