@@ -74,7 +74,7 @@ export default function ModifyProductPage() {
       <Navbar />
 
       <section className="flex flex-col gap-30 items-center justify-center mt-10">
-        <div className="flex flex-col items-center justify-center gap-20 shadow-xl rounded-xl w-220 h-200 px-6 py-5">
+        <div className="flex flex-col items-center justify-center gap-20 shadow-xl rounded-xl w-80 sm:w-150 lg:w-220 h-200 px-6 py-5">
           <p className="font-bold text-2xl">Modify the product</p>
 
           <form
@@ -86,7 +86,7 @@ export default function ModifyProductPage() {
               control={control}
               defaultValue={product?.title}
               render={({ field }) => (
-                <div className="relative flex flex-col w-197">
+                <div className="relative flex flex-col w-70 sm:w-140 lg:w-197">
                   <label className="text-lg font-semibold">Title</label>
                   <input
                     {...field}
@@ -102,7 +102,7 @@ export default function ModifyProductPage() {
               )}
             />
 
-            <div className="relative flex flex-col w-197">
+            <div className="relative flex flex-col  w-70 sm:w-140 lg:w-197">
               <label className="text-lg font-semibold">Price</label>
               <input
                 {...register("price")}
@@ -118,7 +118,7 @@ export default function ModifyProductPage() {
               )}
             </div>
 
-            <div className="relative flex flex-col w-197">
+            <div className="relative flex flex-col  w-70 sm:w-140 lg:w-197">
               <label className="text-lg font-semibold">Description</label>
               <textarea
                 {...register("description")}
@@ -133,7 +133,7 @@ export default function ModifyProductPage() {
               )}
             </div>
 
-            <div className="relative flex flex-col w-197">
+            <div className="relative flex flex-col  w-70 sm:w-140 lg:w-197">
               <label className="text-lg font-semibold">Category</label>
               <input
                 {...register("category")}
@@ -148,7 +148,7 @@ export default function ModifyProductPage() {
               )}
             </div>
 
-            <div className="relative flex flex-col w-197">
+            <div className="relative flex flex-col  w-70 sm:w-140 lg:w-197">
               <label className="text-lg font-semibold">
                 {"Image (URL format)"}
               </label>
