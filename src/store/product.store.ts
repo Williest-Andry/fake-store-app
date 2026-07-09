@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import type { Product } from "../schema/product.schema";
-import { useCartStore } from "./cart.store";
 
 type ProductStore = {
   products: Product[];
