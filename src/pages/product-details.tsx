@@ -25,11 +25,17 @@ export default function ProductDetailsPage() {
     error: updateError,
   } = useUpdateCart("0"); // mock
 
-  const { products } = useCartStore();
-
   const [isSuccessMessage, setIsSuccessMessage] = useState(false);
 
   const [isDeletable, setIsDeletable] = useState(true);
+
+  const { products: cartProducts } = useCartStore();
+
+  const isAlreadyInCart = () => {
+    return cartProducts.find((p) => p.id === existingProduct?.id)
+      ? true
+      : false;
+  };
 
   const handleAddToCart = () => {
     let userCart: Cart = {
@@ -51,10 +57,6 @@ export default function ProductDetailsPage() {
       setIsSuccessMessage(false);
     }, 4000);
   }, [isPending]);
-
-  const isAlreadyInCart = () => {
-    return products.find((p) => p.id === existingProduct?.id) ? true : false;
-  };
 
   const { mutate: deleteProduct, isPending: deletePending } =
     useDeleteProduct();

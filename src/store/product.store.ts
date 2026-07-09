@@ -27,11 +27,16 @@ export const useProductStore = create<ProductStore>((set) => ({
       ],
     })),
   updateProduct: (product) =>
-    set((state) => ({
-      products: [...state.products.filter((p) => p.id != product.id), product],
-      updatedProducts: [
-        ...state.updatedProducts,
-        ...state.products.filter((p) => p.id == product.id),
-      ],
-    })),
+    set((state) => {
+      return {
+        products: [
+          ...state.products.filter((p) => p.id != product.id),
+          product,
+        ],
+        updatedProducts: [
+          ...state.updatedProducts,
+          ...state.products.filter((p) => p.id == product.id),
+        ],
+      };
+    }),
 }));

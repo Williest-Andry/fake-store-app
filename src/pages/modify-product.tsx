@@ -5,12 +5,14 @@ import { useProduct, useUpdateProduct } from "../queries/product.queries";
 import {
   CreateProductSchema,
   type CreateProduct,
+  type Product,
 } from "../schema/product.schema";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import ErrorSection from "../components/error-section";
 import Loading from "../components/loading";
 import { useProductStore } from "../store/product.store";
+import { useCartStore } from "../store/cart.store";
 
 export default function ModifyProductPage() {
   const { id } = useParams();
@@ -40,12 +42,23 @@ export default function ModifyProductPage() {
     }, 2000);
   }, [updatePending]);
 
-  const submitForm: SubmitHandler<CreateProduct> = (
+  const { products: cartProducts, setProducts } = useCartStore();
+
+  const submitForm: SubmitHandler<CreateProduct> = async (
     data: CreateProduct,
     event?: React.BaseSyntheticEvent,
   ) => {
     if (event) event.preventDefault();
     updateProduct(data);
+
+    const updatedProduct = products.find((p) => p.id == id) as Product;
+    let currentProducts = cartProducts.filter((p) => p.id != updatedProduct.id);
+    const finalProduct: Product = {
+      ...data,
+      id: id ?? "",
+    };
+    currentProducts.push(finalProduct);
+    setProducts(currentProducts);
 
     setTimeout(() => {
       setIsSuccessMessage(true);
