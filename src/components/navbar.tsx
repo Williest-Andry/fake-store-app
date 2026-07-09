@@ -33,50 +33,45 @@ export default function Navbar() {
             <NavLink to={"/products"} className={isActiveLink}>
               Home
             </NavLink>
-            <NavLink to={"/create-product"} className={isActiveLink}>
+            <NavLink
+              to={"/create-product"}
+              className={isActiveLink + " not-min-[974px]:w-30"}
+            >
               Create product
             </NavLink>
           </div>
         </div>
 
-        {username ? (
-          <div className="hidden sm:flex items-center gap-2 min-[855px]:gap-8">
-            <div className="flex items-center gap-2 text-gray-500">
-              <p className="text-sm min-[855px]:text-xl">{username}</p>
-              <div className="flex w-7 h-7">
-                <img
-                  src={User}
-                  alt="user icon"
-                  className="w-full h-full object-scale-down"
-                />
-              </div>
-            </div>
-
-            <div className="flex items-center justify-center w-9 h-9">
-              <NavLink to={"/my-cart"}>
-                <img
-                  src={Cart}
-                  alt="cart icon"
-                  className="w-full h-full object-fill"
-                />
-              </NavLink>
-            </div>
-
-            <button className="w-9 h-9 cursor-pointer" onClick={handleLogout}>
+        <div className="hidden sm:flex items-center gap-2 min-[855px]:gap-8">
+          <div className="flex items-center gap-2 text-gray-500">
+            <p className="text-sm min-[855px]:text-xl">{username}</p>
+            <div className="flex w-7 h-7">
               <img
-                src={Logout}
-                alt="logout icon"
+                src={User}
+                alt="user icon"
+                className="w-full h-full object-scale-down"
+              />
+            </div>
+          </div>
+
+          <div className="flex items-center justify-center w-9 h-9">
+            <NavLink to={"/my-cart"}>
+              <img
+                src={Cart}
+                alt="cart icon"
                 className="w-full h-full object-fill"
               />
-            </button>
-          </div>
-        ) : (
-          <div className="flex items-center justify-center bg-blue-600 text-white">
-            <NavLink to={"/login"}>
-              <button>Login</button>
             </NavLink>
           </div>
-        )}
+
+          <button className="w-9 h-9 cursor-pointer" onClick={handleLogout}>
+            <img
+              src={Logout}
+              alt="logout icon"
+              className="w-full h-full object-fill"
+            />
+          </button>
+        </div>
 
         <div className="flex sm:hidden">
           <button
