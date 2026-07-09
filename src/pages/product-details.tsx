@@ -79,8 +79,8 @@ export default function ProductDetailsPage() {
       <Navbar />
 
       <section className="font-work flex flex-col gap-20 xl:gap-10 mt-20  xl:h-180 justify-between items-center">
-        <div className="flex flex-col xl:flex-row justify-center items-center xl:justify-start gap-20  w-full h-full">
-          <div className="bg-gray-100 w-full  xl:w-[50%] flex items-center justify-center ">
+        <div className="flex flex-col xl:flex-row justify-center items-center xl:items-start xl:justify-start gap-20  w-full h-full">
+          <div className="bg-gray-100 w-full h-full xl:w-[50%] flex items-center justify-center ">
             <img
               src={existingProduct.image}
               alt={`${existingProduct.title} image`}
