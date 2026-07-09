@@ -27,8 +27,8 @@ export default function LoginPage() {
     <section className="flex flex-col gap-30 items-center justify-center mt-20">
       <Brand />
 
-      <div className="flex flex-col items-center justify-center gap-20 shadow-xl rounded-xl w-120 h-100 px-6 py-5">
-        <p className="font-bold text-2xl">Sign in with username</p>
+      <div className="flex flex-col items-center justify-center gap-20 shadow-xl rounded-xl w-90 sm:w-120 h-100 px-6 py-5">
+        <p className="font-bold text-xl sm:text-2xl">Sign in with username</p>
 
         <form
           className="flex flex-col items-center gap-6 w-[90%]"
@@ -39,7 +39,7 @@ export default function LoginPage() {
             control={control}
             defaultValue=""
             render={({ field }) => (
-              <div className="relative flex flex-col w-97">
+              <div className="relative flex flex-col sm:w-97">
                 <img
                   src={User}
                   alt="username icon"
@@ -64,7 +64,7 @@ export default function LoginPage() {
             control={control}
             defaultValue=""
             render={({ field }) => (
-              <div className="relative flex flex-col w-97">
+              <div className="relative flex flex-col sm:w-97">
                 <img
                   src={Password}
                   alt="password icon"
@@ -88,7 +88,7 @@ export default function LoginPage() {
             type="submit"
             value={isPending ? "..." : "Login"}
             disabled={isPending}
-            className="bg-black text-white rounded-xl text-xl h-10 w-50 mt-10"
+            className="bg-black text-white rounded-xl text-md sm:text-xl h-10 w-30 sm:w-50 mt-10"
           />
 
           {error && <p className="italic text-red-500">{error.message}</p>}
