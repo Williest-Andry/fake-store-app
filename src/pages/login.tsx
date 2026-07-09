@@ -74,6 +74,7 @@ export default function LoginPage() {
                   {...field}
                   placeholder="password"
                   className="border border-gray-700 h-10 rounded-xl pl-12 w-full"
+                  type="password"
                 ></input>
                 {errors && (
                   <p className="italic text-red-500">
