@@ -27,7 +27,7 @@ export default function LoginPage() {
     <section className="flex flex-col gap-30 items-center justify-center mt-20">
       <Brand />
 
-      <div className="flex flex-col items-center justify-center gap-20 shadow-xl rounded-xl w-90 sm:w-120 h-100 px-6 py-5">
+      <div className="flex flex-col items-center justify-center gap-20 border border-gray-100 shadow-xl rounded-xl w-90 sm:w-120 h-100 px-6 py-5">
         <p className="font-bold text-xl sm:text-2xl">Sign in with username</p>
 
         <form

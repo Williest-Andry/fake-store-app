@@ -74,7 +74,7 @@ export default function ModifyProductPage() {
       <Navbar />
 
       <section className="flex flex-col gap-30 items-center justify-center mt-10">
-        <div className="flex flex-col items-center justify-center gap-20 shadow-xl rounded-xl w-80 sm:w-150 lg:w-220 h-200 px-6 py-5">
+        <div className="flex flex-col items-center justify-center gap-20 border border-gray-100  shadow-xl rounded-xl w-80 sm:w-150 lg:w-220 h-200 px-6 py-5">
           <p className="font-bold text-2xl">Modify the product</p>
 
           <form
