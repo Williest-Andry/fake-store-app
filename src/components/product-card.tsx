@@ -9,7 +9,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   return (
     <NavLink
       to={`/products/${product.id}`}
-      className="flex flex-col items-start w-120 h-140 gap-2 shadow-xl border border-gray-300 transition hover:scale-105 font-work"
+      className="flex flex-col items-start w-90 sm:w-120 h-140 gap-2 shadow-xl border border-gray-300 transition hover:scale-105 font-work"
     >
       <div className="flex w-full items-center justify-center h-[80%] px-2 bg-gray-100">
         <img
