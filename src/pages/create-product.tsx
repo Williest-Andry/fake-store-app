@@ -63,7 +63,7 @@ export default function CreateProductPage() {
       <Navbar />
 
       <section className="flex flex-col gap-30 items-center justify-center mt-10">
-        <div className="flex flex-col items-center justify-center gap-20 shadow-xl rounded-xl w-120 h-200 px-6 py-5">
+        <div className="flex flex-col items-center justify-center gap-20 shadow-xl rounded-xl w-80 sm:w-120 h-230 px-6 py-5">
           <p className="font-bold text-2xl">Create your own product</p>
 
           <form
@@ -75,7 +75,7 @@ export default function CreateProductPage() {
               control={control}
               defaultValue=""
               render={({ field }) => (
-                <div className="relative flex flex-col w-97">
+                <div className="relative flex flex-col w-77 sm:w-97">
                   <label className="text-lg font-semibold">Title</label>
                   <input
                     {...field}
@@ -91,7 +91,7 @@ export default function CreateProductPage() {
               )}
             />
 
-            <div className="relative flex flex-col w-97">
+            <div className="relative flex flex-col w-77 sm:w-97">
               <label className="text-lg font-semibold">Price</label>
               <input
                 {...register("price")}
@@ -106,7 +106,7 @@ export default function CreateProductPage() {
               )}
             </div>
 
-            <div className="relative flex flex-col w-97">
+            <div className="relative flex flex-col w-77 sm:w-97">
               <label className="text-lg font-semibold">Description</label>
               <textarea
                 {...register("description")}
@@ -120,7 +120,7 @@ export default function CreateProductPage() {
               )}
             </div>
 
-            <div className="relative flex flex-col w-97">
+            <div className="relative flex flex-col w-77 sm:w-97">
               <label className="text-lg font-semibold">Category</label>
               <input
                 {...register("category")}
@@ -134,7 +134,7 @@ export default function CreateProductPage() {
               )}
             </div>
 
-            <div className="relative flex flex-col w-97">
+            <div className="relative flex flex-col w-77 sm:w-97">
               <label className="text-lg font-semibold">
                 {"Image (URL format)"}
               </label>
